@@ -22,18 +22,32 @@ class SteppingPiece < Piece
   end
 
   def knight_moves
-    KNIGHT_MOVES_DIFF.map {|diff| [pos[0] + diff[0], pos[1] + diff[1]]}
+    KNIGHT_MOVES_DIFF.map do |diff|
+      possible_move = [pos[0] + diff[0], pos[1] + diff[1]]
+    end.select {|move| in_bounds?(move)}
   end
 
 end
 
 class Knight < SteppingPiece
+
+  def initialize(*args)
+    @type = :knight
+    super(*args)
+  end
+
   def move_dirs
     :knight
   end
 end
 
 class King < SteppingPiece
+
+  def initialize(*args)
+    @type = :king
+    super(*args)
+  end
+
   def move_dirs
     :hop
   end
