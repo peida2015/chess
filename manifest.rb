@@ -1,0 +1,8 @@
+require_relative 'display.rb'
+require_relative 'board.rb'
+require_relative 'cursorable.rb'
+require_relative 'piece.rb'
+require_relative 'slidingpiece.rb'
+require_relative 'bishop.rb'
+require_relative 'rook.rb'
+require_relative 'queen.rb'
