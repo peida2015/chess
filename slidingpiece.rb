@@ -1,11 +1,11 @@
-require_relative 'manifest.rb'
+#require_relative 'manifest.rb'
 
 class SlidingPiece < Piece
 
   DIAG_MOVES_DIFF = (1..7).map {|i| [[i, i], [-i, -i], [i, -i], [-i, i]]}.reduce(:+)
 
   def moves
-    # move_list = []
+
     if move_dirs == :straight
       straight_moves
     elsif move_dirs == :diag
@@ -14,7 +14,6 @@ class SlidingPiece < Piece
       diag_moves + straight_moves
     end
 
-    # move_list.sort
   end
 
   def straight_moves
