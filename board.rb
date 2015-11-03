@@ -38,17 +38,14 @@ class Board
   end
 
   def populate_other_pieces
-    order = [:rook, :knight, :bishop, :king, :queen, :bishop, :knight, :rook]
-    piece_types = {:rook => Proc.new {|pos,color,board| Rook.new(pos, color, board)},
-      :knight => Proc.new {|pos,color,board| Knight.new(pos, color, board)},
-      :bishop => Proc.new {|pos,color,board| Bishop.new(pos, color, board)},
-      :king => Proc.new {|pos,color,board| King.new(pos, color, board)},
-      :queen => Proc.new {|pos,color,board| Queen.new(pos, color, board)}}
+    order = [Rook, Knight, Bishop, King, Queen, Bishop, Knight, Rook]
+
     @grid[0].each_index do |i|
-      self[[0, i]] = piece_types[order[i]].call([0, i], :black, self)
+      self[[0, i]] = order[i].new([0, i], :black, self)
     end
+  
     @grid[7].each_index do |i|
-      self[[7, i]] = piece_types[order[i]].call([7, i], :white, self)
+      self[[7, i]] = order[i].new([7, i], :white, self)
     end
   end
 
