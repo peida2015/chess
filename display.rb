@@ -3,6 +3,13 @@ require_relative 'board.rb'
 require_relative 'cursorable.rb'
 
 class Display
+
+  UNICODE = {:rook => "\u{2656}", :bishop => "\u{2657}", :knight => "\u{2658}",
+            :pawn => "\u{2659}", :king => "\u{2654}", :queen => "\u{2655}"}
+
+  UNICODE_BLACK = {:rook => "\u{265C}", :bishop => "\u{265D}", :knight => "\u{265E}",
+            :pawn => "\u{265F}", :king => "\u{265A}", :queen => "\u{265B}"}
+
   include Cursorable
 
   attr_reader :board
@@ -23,21 +30,33 @@ class Display
   def build_row(row, i)
     row.map.with_index do |piece, j|
       color_options = colors_for(i, j)
-      piece.type.to_s.colorize(color_options)
+      if piece
+        if piece.color == :white
+        " #{UNICODE[piece.type]}  ".colorize(color_options)
+        elsif piece.color == :black
+        " #{UNICODE_BLACK[piece.type]}  ".colorize(color_options)
+        end
+      else
+        "    ".colorize(color_options)
+      end
     end
   end
 
   def colors_for(i, j)
     if [i, j] == @cursor_pos
       bg = :light_red
-    elsif (i + j).odd?
-      bg = :light_blue
     elsif [i, j] == @selected
       bg = :yellow
-    else
+    elsif (i + j).odd?
       bg = :blue
+    else
+      bg = :light_blue
     end
-    { background: bg, color: :white }
+
+    if board[[i,j]]
+      piece_color = board[[i,j]].color
+    end
+    { background: bg, color: piece_color }
   end
 
   def render
@@ -58,8 +77,7 @@ class Display
 end
 
 if $PROGRAM_NAME == __FILE__
+  load 'manifest.rb'
   disp = Display.new(board = Board.new)
-  disp.move
-  disp.move
-  disp.move
+  10.times {disp.move}
 end
