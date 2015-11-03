@@ -15,16 +15,21 @@ class SteppingPiece < Piece
   end
 
   def king_moves
-    KING_MOVES_DIFF.map do |diff|
-      possible_move = [pos[0] + diff[0], pos[1] + diff[1]]
-    end.select {|move| in_bounds?(move)}
-      #possible_move if in_bounds?(possible_move)
+    possible_moves = KING_MOVES_DIFF.map do |diff|
+      [pos[0] + diff[0], pos[1] + diff[1]]
+    end
+    possible_moves.select do |move|
+      in_bounds?(move) && (@board[move].nil? || @board[move].color != self.color)
+    end
   end
 
   def knight_moves
-    KNIGHT_MOVES_DIFF.map do |diff|
-      possible_move = [pos[0] + diff[0], pos[1] + diff[1]]
-    end.select {|move| in_bounds?(move)}
+    possible_moves = KNIGHT_MOVES_DIFF.map do |diff|
+      [pos[0] + diff[0], pos[1] + diff[1]]
+    end
+    possible_moves.select do |move| 
+      in_bounds?(move) && (@board[move].nil? || @board[move].color != self.color)
+    end
   end
 
 end

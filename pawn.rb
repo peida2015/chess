@@ -14,20 +14,51 @@ class Pawn < Piece
 
   def moves_down
     moves = []
-    if @pos[0] == 1
-      moves << [pos[0]+2,pos[1]]
-      moves << [pos[0]+1,pos[1]]
-    else
-      moves << [pos[0]+1,pos[1]]
+    spot_1 = [pos[0]+1,pos[1]]
+    spot_2 = [pos[0]+2,pos[1]]
+    spot_3 = [pos[0]+1,pos[1]-1]
+    spot_4 = [pos[0]+1,pos[1]+1]
+
+    if @board[spot_1].nil?
+      moves << spot_1 if @board[spot_1].nil?
+      moves << spot_2 if @pos[0] == 1 && @board[spot_2].nil?
     end
+    unless @board[spot_4].nil?
+      moves << spot_4 if @board[spot_4].color != self.color
+    end
+    unless @board[spot_3].nil?
+      moves << spot_3 if @board[spot_3].color != self.color
+    end
+
+    moves
+  end
+
+  def moves_up
+    moves = []
+    spot_1 = [pos[0]-1,pos[1]]
+    spot_2 = [pos[0]-2,pos[1]]
+    spot_3 = [pos[0]-1,pos[1]-1]
+    spot_4 = [pos[0]-1,pos[1]+1]
+
+    if @board[spot_1].nil?
+      moves << spot_1 if @board[spot_1].nil?
+      moves << spot_2 if @pos[0] == 6 && @board[spot_2].nil?
+    end
+    unless @board[spot_4].nil?
+      moves << spot_4 if @board[spot_4].color != self.color
+    end
+    unless @board[spot_3].nil?
+      moves << spot_3 if @board[spot_3].color != self.color
+    end
+
     moves
   end
 
   def pieces_in_front
     pieces = []
     [[1,-1],[1,0],[1,1],[2,0]].map do |diff|
-      pieces << @board[[pos[0]+diff[0],pos[1]+diff[1]]].pos
-    end.delete_if(&:nil?)
-    pieces
+      pieces << @board[[pos[0]+diff[0],pos[1]+diff[1]]]
+    end
+    pieces.delete_if(&:nil?)
   end
 end

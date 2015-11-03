@@ -16,30 +16,6 @@ class SlidingPiece < Piece
 
   end
 
-  # def straight_moves
-  #   move_list =[]
-  #   (0..7).to_a.each do |i|
-  #     move_list << [i, pos[1]] unless i == pos[0]
-  #     move_list << [pos[0], i] unless i == pos[1]
-  #   end
-  #   move_list.sort
-  # end
-  #
-  # def valid_moves
-  #   straight_moves.select do |move|
-  #   end
-  # end
-  #
-  # def diag_moves
-  #   move_list = []
-  #   DIAG_MOVES_DIFF.each do |diff|
-  #     new_move = [diff[0]+pos[0], diff[1]+pos[1]]
-  #     move_list << new_move if new_move.all? {|x| x.between?(0,7)}
-  #   end
-  #   move_list.sort
-  # end
-
-
   def check_row
     left_moves = []
     right_moves = []
