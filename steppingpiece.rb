@@ -27,7 +27,7 @@ class SteppingPiece < Piece
     possible_moves = KNIGHT_MOVES_DIFF.map do |diff|
       [pos[0] + diff[0], pos[1] + diff[1]]
     end
-    possible_moves.select do |move| 
+    possible_moves.select do |move|
       in_bounds?(move) && (@board[move].nil? || @board[move].color != self.color)
     end
   end
@@ -51,6 +51,7 @@ class King < SteppingPiece
   def initialize(*args)
     @type = :king
     super(*args)
+    # @color == :white ? @board.white_king_spot = @pos : @board.black_king_spot = @pos
   end
 
   def move_dirs

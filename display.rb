@@ -61,7 +61,7 @@ class Display
 
   def render
     system("clear")
-    puts "Fill the grid!"
+    # puts "Fill the grid!"
     puts "Arrow keys, WASD, or vim to move, space or enter to confirm."
     build_grid.each {|row| puts row.join}
   end
@@ -84,5 +84,6 @@ end
 if $PROGRAM_NAME == __FILE__
   load 'manifest.rb'
   disp = Display.new(board = Board.new)
-  10.times {disp.move}
+  10.times {disp.move }
+  p disp.board.white_king_spot #{@board.black_king_spot}"
 end

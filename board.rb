@@ -3,10 +3,12 @@ require_relative 'piece.rb'
 
 class Board
 
-  attr_accessor :grid
+  attr_accessor :grid, :white_king_spot, :black_king_spot
 
   def initialize(grid = Array.new(8) {Array.new(8)} )
     @grid = grid
+    @white_king_spot = [7,3]
+    @black_king_spot = [0,3]
     populate_other_pieces
     populate_pawns
   end
@@ -45,12 +47,14 @@ class Board
     end
   end
 
-  # def move(start, end_pos)
-  #   raise "Invalid move" unless valid_move?(start, end_pos)
-  #   self[end_pos]= self[start]
-  #   self[end_pos].pos = end_pos
-  #   self[start] = nil
-  # end
+  def in_check?(color)
+    king_spot = []
+    @grid.each do |row|
+      row.each {|space| king_spot = space.pos if space.type ==:king && space.color == color}
+    end
+
+
+  end
 
   def in_bounds?(pos)
     pos[0].between?(0,7) && pos[1].between?(0,7)
@@ -59,6 +63,8 @@ class Board
   def move(start, end_pos)
     if !self[start].nil?
       if self[start].moves.include?(end_pos)
+        self.white_king_spot = end_pos if self[start].type == :king && self[start].color == :white
+        self.black_king_spot = end_pos if self[start].type == :king && self[start].color == :black
         self[end_pos] = self[start]
         self[start].pos = end_pos
         self[start] = nil
