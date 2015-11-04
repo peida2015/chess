@@ -48,12 +48,15 @@ class Board
   end
 
   def in_check?(color)
-    king_spot = []
+    color == :black ? king_spot = @black_king_spot : king_spot = @white_king_spot
     @grid.each do |row|
-      row.each {|space| king_spot = space.pos if space.type ==:king && space.color == color}
+      row.each do |space|
+        unless space.nil?
+          return true if space.moves.include?(king_spot) && space.color != color
+        end
+      end
     end
-
-
+    false
   end
 
   def in_bounds?(pos)

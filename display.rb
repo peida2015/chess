@@ -85,5 +85,5 @@ if $PROGRAM_NAME == __FILE__
   load 'manifest.rb'
   disp = Display.new(board = Board.new)
   10.times {disp.move }
-  p disp.board.white_king_spot #{@board.black_king_spot}"
+  p disp.board.in_check?(:black) #{@board.black_king_spot}"
 end
