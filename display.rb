@@ -67,12 +67,17 @@ class Display
   end
 
   def move
-    result = nil
-    until result
+    result1 = nil
+    result2 = nil
+    until result1
       self.render
-      result = self.get_input
+      result1 = self.get_input
     end
-    result
+    until result2
+      self.render
+      result2 = self.get_input
+    end
+    @board.move(result1, result2)
   end
 end
 

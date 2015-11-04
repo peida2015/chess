@@ -13,5 +13,4 @@ class Piece
     pos[0].between?(0,7) && pos[1].between?(0,7)
   end
 
-  
 end
